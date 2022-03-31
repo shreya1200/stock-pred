@@ -56,27 +56,30 @@ def scrape(csv_name,keyword):
         if keyword in texts.text:
             headlines.append(texts.string)
     
-    # apply Vader's algorithm
-    scores=vaders_scores(headlines)
-    # print(scores)
+    if len(headlines)==0:
+        pass
+    else:
+        # apply Vader's algorithm
+        scores=vaders_scores(headlines)
+        # print(scores)
 
-    # CREATE DATAFRAME
-    # Add scraped data to dataframe
-    scraped_data = [[final_date,scores]]
-    # print(scraped_data)
-    df=pd.DataFrame(scraped_data,columns=['Date','Scores'])
-    
-    # separate every score into separate columns
-    df['Comp_News']  = df['Scores'].apply(lambda score_dict: score_dict['compound'])
-    df['Pos_News']  = df['Scores'].apply(lambda score_dict: score_dict['pos'])
-    df['Neu_News']  = df['Scores'].apply(lambda score_dict: score_dict['neu'])
-    df['Neg_News']  = df['Scores'].apply(lambda score_dict: score_dict['neg'])
+        # CREATE DATAFRAME
+        # Add scraped data to dataframe
+        scraped_data = [[final_date,scores]]
+        # print(scraped_data)
+        df=pd.DataFrame(scraped_data,columns=['Date','Scores'])
+        
+        # separate every score into separate columns
+        df['Comp_News']  = df['Scores'].apply(lambda score_dict: score_dict['compound'])
+        df['Pos_News']  = df['Scores'].apply(lambda score_dict: score_dict['pos'])
+        df['Neu_News']  = df['Scores'].apply(lambda score_dict: score_dict['neu'])
+        df['Neg_News']  = df['Scores'].apply(lambda score_dict: score_dict['neg'])
 
-    # drop scores column
-    df=df.drop(['Scores'],axis=1)
+        # drop scores column
+        df=df.drop(['Scores'],axis=1)
 
-    # append DataFrame to respective csv
-    append_to_csv(df,csv_name,final_date)   
+        # append DataFrame to respective csv
+        append_to_csv(df,csv_name,final_date)   
 
 
 
@@ -111,6 +114,7 @@ def vaders_scores(headlines):
 
 def append_to_csv(df,csv_name,final_date):
     # APPEND formatted dataframe to original CSV
+    print("CSV=====",csv_name)
     data = pd.read_csv(f"stocks/datasets/{csv_name}")    
 
     # check whether last entry is not of the same day to avoid redundancy

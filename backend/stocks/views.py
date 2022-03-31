@@ -16,11 +16,11 @@ class StocksView(APIView):
     # fetch_data("InfosysFinal.csv")
     # stock_data={"csv_name":{"TataFinal.csv","InfosysFinal.csv","HDFCFinal.csv","BajajFinal.csv","AirtelFinal.csv","AdaniFinal.csv"}}
     
-    # scrape_all_news()
+    scrape_all_news()
 
     scrape_all_tweets()
 
-    scrape_all_technicals()
+    # scrape_all_technicals()
 
     # SCHEDULE SCRAPE FOR EVERYDAY
     # schedule.every().day.at("14:10").do(scrape_all_news)# change 10:30 to time of your choice

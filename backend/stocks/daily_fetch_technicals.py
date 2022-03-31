@@ -1,5 +1,5 @@
 from datetime import date
-import yfinance as yf
+# import yfinance as yf
 
 
 
@@ -16,7 +16,8 @@ def scrape_all_technicals():
         # {"csv_name":"AdaniFinalNews.csv","keyword":"Adani port"},
     ]
     for i in tweet_data:
-        scrape_tweets(i['csv_name'],i['keyword'])
+        scrape_technicals(i['csv_name'],i['keyword'])
 
-def scrape_tweets(csv_name,keyword):
+def scrape_technicals(csv_name,keyword):
     # Configure
+    return "ABC"
