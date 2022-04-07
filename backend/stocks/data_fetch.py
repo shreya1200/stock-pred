@@ -10,12 +10,25 @@ import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 sid = SentimentIntensityAnalyzer()
 
+def scrape_news_now():
+    print("3_Start_now")
+    stock_data=[
+        {"csv_name":"TataFinalNews.csv","keyword":"Tata Motor"},
+        {"csv_name":"InfosysFinalNews.csv","keyword":"Infosys"},
+        {"csv_name":"HDFCFinalNews.csv","keyword":"HDFC Bank"},
+        {"csv_name":"BajajFinalNews.csv","keyword":"Bajaj Auto"},
+        {"csv_name":"AirtelFinalNews.csv","keyword":"Airtel"},
+        {"csv_name":"AdaniFinalNews.csv","keyword":"Adani port"},
+    ]
+    for i in stock_data:
+        scrape_news(i['csv_name'],i['keyword'])
+
 def scrape_news(csv_name,keyword):
     headline_data=[]
     dates = []
     headlines = []
 
-    for i in range(44648,44650):   
+    for i in range(44656,44658):   
         url_date= 'https://economictimes.indiatimes.com/archivelist/year-2022,month-1,starttime-'+str(i)+'.cms'
         print(url_date)
         monthwise = requests.get(url_date)
@@ -81,6 +94,7 @@ def merge_data(df1,csv_name):
     df1 = df1.groupby(['Date'])['Headline'].apply(':: '.join).reset_index()
     df1=df1.reset_index(drop=True)
     # print (df1[['Date','Headline']])
+    print("::::::::",df1)
 
     vaders(df1,csv_name)
 

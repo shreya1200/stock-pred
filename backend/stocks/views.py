@@ -8,6 +8,7 @@ import pandas as pd
 from stocks.daily_fetch_news import *
 from stocks.daily_fetch_tweets import *
 from stocks.daily_fetch_technicals import *
+from stocks.prediction import *
 import schedule
 
 # Create your views here.
@@ -16,11 +17,15 @@ class StocksView(APIView):
     # fetch_data("InfosysFinal.csv")
     # stock_data={"csv_name":{"TataFinal.csv","InfosysFinal.csv","HDFCFinal.csv","BajajFinal.csv","AirtelFinal.csv","AdaniFinal.csv"}}
     
-    scrape_all_news()
 
-    scrape_all_tweets()
+    # scrape_news_now()
+    # scrape_all_news()
+
+    # scrape_all_tweets()
 
     # scrape_all_technicals()
+
+    merge_to_final_dataset()
 
     # SCHEDULE SCRAPE FOR EVERYDAY
     # schedule.every().day.at("14:10").do(scrape_all_news)# change 10:30 to time of your choice

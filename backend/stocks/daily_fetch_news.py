@@ -31,6 +31,8 @@ def scrape(csv_name,keyword):
     # your web scraping code here
     print('web scraping')
     url_data= 'https://economictimes.indiatimes.com/headlines.cms'
+    # url_data= 'https://economictimes.indiatimes.com/archivelist/year-2022,month-4,starttime-44656.cms'
+
     print(url_data)
     daily = requests.get(url_data)
     print(daily)
