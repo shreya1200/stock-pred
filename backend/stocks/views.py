@@ -19,11 +19,11 @@ class StocksView(APIView):
     # stock_data={"csv_name":{"TataFinal.csv","InfosysFinal.csv","HDFCFinal.csv","BajajFinal.csv","AirtelFinal.csv","AdaniFinal.csv"}}
 
     # scrape_news_now()
-    # scrape_all_news()
+    scrape_all_news()
 
-    # scrape_all_tweets()
+    scrape_all_tweets()
 
-    # scrape_all_technicals()
+    scrape_all_technicals()
 
     merge_to_final_dataset()
 

@@ -43,37 +43,37 @@ def predict(df,name,epoch,lr):
     # show_graph(res)
     # error_percent(res)
 
-# def show_res(res):
-    # print(machine.metrics())
-    plt.rcParams["figure.figsize"] = [60, 15]
-    plt.rcParams["font.size"] = 40
-    plt.rcParams["axes.labelsize"] = 60
-    plt.plot(res['y_pred'],label='y_pred',color='blue')
-    plt.plot(res['y_test'],label='y_test',color='red')
-    plt.xlim(xmin=0,xmax=len(res['y_test']))
-    plt.legend(prop={'size':30})
-    plt.show()
-    plt.rcParams.update({
-        "figure.figsize":[6.4,4.8],
-        "font.size":10,
-        "axes.labelsize":'medium',
-    })
+# # def show_res(res):
+#     # print(machine.metrics())
+#     plt.rcParams["figure.figsize"] = [60, 15]
+#     plt.rcParams["font.size"] = 40
+#     plt.rcParams["axes.labelsize"] = 60
+#     plt.plot(res['y_pred'],label='y_pred',color='blue')
+#     plt.plot(res['y_test'],label='y_test',color='red')
+#     plt.xlim(xmin=0,xmax=len(res['y_test']))
+#     plt.legend(prop={'size':30})
+#     plt.show()
+#     plt.rcParams.update({
+#         "figure.figsize":[6.4,4.8],
+#         "font.size":10,
+#         "axes.labelsize":'medium',
+#     })
 
-# def error_percent():
-    plt.rcParams["figure.figsize"] = [60, 15]
-    plt.rcParams["font.size"] = 40
-    plt.rcParams["axes.labelsize"] = 60
-    plt.plot(res['percent_error'],label='percent_error',color='blue')
-    plt.plot([10 for i in range(len(res['percent_error']))],label='10 line',color='red')
-    plt.ylabel("% Error")
-    plt.xlim(xmin=0,xmax=len(res['y_test']))
-    plt.legend(prop={'size':30})
-    plt.show()
-    plt.rcParams.update({
-        "figure.figsize":[6.4,4.8],
-        "font.size":10,
-        "axes.labelsize":'medium',
-    })
+# # def error_percent():
+#     plt.rcParams["figure.figsize"] = [60, 15]
+#     plt.rcParams["font.size"] = 40
+#     plt.rcParams["axes.labelsize"] = 60
+#     plt.plot(res['percent_error'],label='percent_error',color='blue')
+#     plt.plot([10 for i in range(len(res['percent_error']))],label='10 line',color='red')
+#     plt.ylabel("% Error")
+#     plt.xlim(xmin=0,xmax=len(res['y_test']))
+#     plt.legend(prop={'size':30})
+#     plt.show()
+#     plt.rcParams.update({
+#         "figure.figsize":[6.4,4.8],
+#         "font.size":10,
+#         "axes.labelsize":'medium',
+#     })
 
         
 
