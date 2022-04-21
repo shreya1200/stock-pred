@@ -6,27 +6,28 @@ import matplotlib.pyplot as plt
 import datetime
 import time
 
-def merge_to_final_dataset():
-    final_dataset=[
-        {"news_csv":"TataFinalNews.csv","tweets_csv":"TataFinalTweets.csv","tech_csv":"TataFinalTech.csv","name":"TATAMOTORS","epoch":270,"lr":26},
-        {"news_csv":"InfosysFinalNews.csv","tweets_csv":"InfosysFinalTweets.csv","tech_csv":"InfosysFinalTech.csv","name":"INFOSYS","epoch":150,"lr":27},
-        {"news_csv":"HDFCFinalNews.csv","tweets_csv":"HDFCFinalTweets.csv","tech_csv":"HDFCFinalTech.csv","name":"HDFCBANK","epoch":400,"lr":56},
-        {"news_csv":"BajajFinalNews.csv","tweets_csv":"BajajFinalTweets.csv","tech_csv":"BajajFinalTech.csv","name":"BAJAJAUTO","epoch":125,"lr":49},
-        {"news_csv":"AirtelFinalNews.csv","tweets_csv":"AirtelFinalTweets.csv","tech_csv":"AirtelFinalTech.csv","name":"AIRTEL","epoch":150,"lr":0.189},
-        {"news_csv":"AdaniFinalNews.csv","tweets_csv":"AdaniFinalTweets.csv","tech_csv":"AdaniFinalTech.csv","name":"ADANIPORTS","epoch":600,"lr":20}    
-    ]
-    for i in final_dataset:
-        news=pd.read_csv(f"stocks/datasets/{i['news_csv']}")
-        tweets=pd.read_csv(f"stocks/datasets/{i['tweets_csv']}")
-        technicals=pd.read_csv(f"stocks/datasets/{i['tech_csv']}")
-        print(news)
-        print(tweets)
-        print(technicals)
-        df = pd.merge(pd.merge(news,tweets,on='Date'),technicals,on='Date')
-        df["Date"] = df["Date"].apply(lambda x:datetime.datetime.strptime(str(x), "%Y-%m-%d").strftime('%d-%m-%Y'))
+def merge_to_final_dataset(news_csv,tweets_csv,tech_csv,name,epoch,lr):
+    # final_dataset=[
+    #     {"news_csv":"TataFinalNews.csv","tweets_csv":"TataFinalTweets.csv","tech_csv":"TataFinalTech.csv","name":"TATAMOTORS","epoch":270,"lr":26},
+    #     {"news_csv":"InfosysFinalNews.csv","tweets_csv":"InfosysFinalTweets.csv","tech_csv":"InfosysFinalTech.csv","name":"INFOSYS","epoch":150,"lr":27},
+    #     {"news_csv":"HDFCFinalNews.csv","tweets_csv":"HDFCFinalTweets.csv","tech_csv":"HDFCFinalTech.csv","name":"HDFCBANK","epoch":400,"lr":56},
+    #     {"news_csv":"BajajFinalNews.csv","tweets_csv":"BajajFinalTweets.csv","tech_csv":"BajajFinalTech.csv","name":"BAJAJAUTO","epoch":125,"lr":49},
+    #     {"news_csv":"AirtelFinalNews.csv","tweets_csv":"AirtelFinalTweets.csv","tech_csv":"AirtelFinalTech.csv","name":"AIRTEL","epoch":150,"lr":0.189},
+    #     {"news_csv":"AdaniFinalNews.csv","tweets_csv":"AdaniFinalTweets.csv","tech_csv":"AdaniFinalTech.csv","name":"ADANIPORTS","epoch":600,"lr":20}    
+    # ]
+    # for i in final_dataset:
+    news=pd.read_csv(f"stocks/datasets/{news_csv}")
+    tweets=pd.read_csv(f"stocks/datasets/{tweets_csv}")
+    technicals=pd.read_csv(f"stocks/datasets/{tech_csv}")
+    print(news)
+    print(tweets)
+    print(technicals)
+    df = pd.merge(pd.merge(news,tweets,on='Date'),technicals,on='Date')
+    df["Date"] = df["Date"].apply(lambda x:datetime.datetime.strptime(str(x), "%Y-%m-%d").strftime('%d-%m-%Y'))
 
-        print("FINAL",df.columns)
-        predict(df,i['name'],i['epoch'],i['lr'])
+    print("FINAL",df.columns)
+    data=predict(df,name,epoch,lr)
+    return data
 
 def predict(df,name,epoch,lr):
     print(name,epoch,lr)
@@ -42,9 +43,17 @@ def predict(df,name,epoch,lr):
     res = machine.res 
     # show_graph(res)
     # error_percent(res)
+    # print(y_pred)
+    predicted=res['y_pred'].tolist()
+    actual=res['y_test'].tolist()
+    print("__________________________",type(predicted))
+    return [predicted,actual]
+    # return (res['y_pred'],res['y_test'])
 
-# # def show_res(res):
-#     # print(machine.metrics())
+    
+
+# def show_res(res):
+#     print(machine.metrics())
 #     plt.rcParams["figure.figsize"] = [60, 15]
 #     plt.rcParams["font.size"] = 40
 #     plt.rcParams["axes.labelsize"] = 60

@@ -23,6 +23,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
 from stocks.views import *
+from stocks import views
 # from stocks.data_fetch import fetch_data
 
 urlpatterns = [
