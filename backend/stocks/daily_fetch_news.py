@@ -134,3 +134,16 @@ def append_to_csv(df,csv_name,final_date):
         final.to_csv(f"stocks/datasets/{csv_name}",index=False)
         print(final)
 
+
+def news_headlines(keyword):
+    headlines = []
+    url_data= 'https://economictimes.indiatimes.com/headlines.cms'
+    daily = requests.get(url_data)
+    content_daily = daily.text
+    soup=BeautifulSoup(content_daily,'lxml')
+    headline_data = soup.findAll("a")
+    for texts in headline_data:
+        if keyword in texts.text:
+            headlines.append(texts.string)
+
+    return headlines

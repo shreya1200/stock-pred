@@ -101,3 +101,33 @@ def vaders_scores(headlines):
     scores = sid.polarity_scores(headlines_final)
     return scores 
 
+def tweets_data(keyword):
+    tweets_list = []
+
+    presentday = datetime.now()
+    tomorrow = presentday + timedelta(1)
+    presentday=presentday.strftime('%Y-%m-%d')
+    tomorrow=tomorrow.strftime('%Y-%m-%d')
+
+    t = twint.Config()
+    t.Search = keyword
+    t.Store_object = True
+    # t.Limit=1000
+    t.Since = presentday
+    t.Until= tomorrow
+    t.Store_csv = True
+    t.Output = 'tweet_data.csv'
+    twint.run.Search(t)
+
+    df=pd.read_csv("tweet_data.csv")
+    print(df)
+    if df.empty:  
+        pass
+    else:  
+        df =df.drop_duplicates(['tweet'])
+        df=df.reset_index(drop=True)
+        tweets_list.extend(df['tweet'].tolist()) 
+        with open('tweet_data.csv', 'r+',errors='ignore') as f:
+            f.readline() # read one line
+            f.truncate(f.tell()) # terminate the file here
+    return tweets_list
