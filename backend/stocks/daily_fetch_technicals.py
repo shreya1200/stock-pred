@@ -57,3 +57,12 @@ def append_to_csv(df,csv_name,TODAY):
         final=pd.concat([data,df],ignore_index=True)
         final.to_csv(f"stocks/datasets/{csv_name}",index=False)
         print(final)
+
+
+def technical_data(url_key):
+    TODAY = date.today()
+    TOMORROW = TODAY + timedelta(1)
+    data = load_data(url_key, TODAY,TOMORROW)
+    print("dhfshgfjdbkjf",data)
+
+    return data

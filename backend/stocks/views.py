@@ -59,7 +59,8 @@ class StocksView(APIView):
                 "epoch":270,
                 "lr":26,
                 "keyword_news":"Tata Motor",
-                "keyword_tweets":"Tata Motors Stocks"
+                "keyword_tweets":"Tata Motors Stocks",
+                "url_key":"TATAMOTORS.NS"
             },
             {
                 "news_csv":"InfosysFinalNews.csv",
@@ -69,7 +70,8 @@ class StocksView(APIView):
                 "epoch":150,
                 "lr":27,
                 "keyword_news":"Infosys",
-                "keyword_tweets":"INFY Stocks"
+                "keyword_tweets":"INFY Stocks",
+                "url_key":"INFY.NS"
                 
             },
             {
@@ -80,7 +82,8 @@ class StocksView(APIView):
                 "epoch":400,
                 "lr":56,
                 "keyword_news":"HDFC Bank",
-                "keyword_tweets":"HDFC Bank Stocks"
+                "keyword_tweets":"HDFC Bank Stocks",
+                "url_key":"HDFCBANK.NS"
             },
             {
                 "news_csv":"BajajFinalNews.csv",
@@ -90,7 +93,8 @@ class StocksView(APIView):
                 "epoch":125,
                 "lr":49,
                 "keyword_news":"Bajaj Auto",
-                "keyword_tweets":"Bajaj Auto Stocks"
+                "keyword_tweets":"Bajaj Auto Stocks",
+                "url_key":"BAJFINANCE.NS"
             },
             {
                 "news_csv":"AirtelFinalNews.csv",
@@ -100,7 +104,8 @@ class StocksView(APIView):
                 "epoch":150,
                 "lr":0.189,
                 "keyword_news":"Airtel",
-                "keyword_tweets":"Airtel Stocks"
+                "keyword_tweets":"Airtel Stocks",
+                "url_key":"BHARTIARTL.NS"
             },
             {
                 "news_csv":"AdaniFinalNews.csv",
@@ -110,7 +115,8 @@ class StocksView(APIView):
                 "epoch":600,
                 "lr":20,
                 "keyword_news":"Adani port",
-                "keyword_tweets":"Adani port Stocks"
+                "keyword_tweets":"Adani port Stocks",
+                "url_key":"ADANIPORTS.NS"
             }    
         ]
         data=[]
@@ -124,11 +130,21 @@ class StocksView(APIView):
                 print("=-=-==-=-=-=-=-=-=-=",newsData)
                 tweetData=tweets_data(i['keyword_tweets'])
                 print("||||||++++++++||||||||",tweetData)
+                techData=technical_data(i["url_key"])
+                print("||||||+++++++++++++___________________________++++++++++++++||||||",techData)
                 break
-        # dataPred={"pred":data[0]}
+        dataPred={"pred":data[0]}
+        print("::::::::::",dataPred)
         # dataActual={"actual":data[1]}
-        print("+++++++++++++++",data)
-        dataDict={"pred":data[0],"actual":data[1],"news":newsData,"tweets":tweetData}
+        # print("+++++++++++++++",data)
+        tomorrowsPred=data[0][-1]-techData['Close']
+        if tomorrowsPred[0]>0:
+            trend="Positive"
+        else:
+            trend="Negative"
+        dataDict={"pred":data[0],"actual":data[1],"news":newsData,"tweets":tweetData,"technicals":{"open":techData['Open'],"low":techData['Low'],"high":techData['High'],"close":techData['Close'],"adjClose":techData['Adj Close'],"vol":techData['Volume'],"tomorrowsPred":trend}}
+        # print("apoorva",dataDict)
+    
 
         # print("[[[[[[[[[[[[[[[[",res['y_pred'])
         # serializer = StocksSerializer(data=request.data)
